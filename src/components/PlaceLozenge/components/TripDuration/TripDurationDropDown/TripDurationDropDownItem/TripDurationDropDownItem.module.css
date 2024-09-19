@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.container:hover {
+    background-color: #f5f5f5;
+}
+
+.container span {
+    font-size: 0.6rem;
+}
+
+.placeholder {
+    width: 25px;
+    height: 20px;
+}

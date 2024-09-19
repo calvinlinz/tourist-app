@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.containerClose {
+    display: none;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.placeholder {
+    width: 20px;
+    height: 20px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+}

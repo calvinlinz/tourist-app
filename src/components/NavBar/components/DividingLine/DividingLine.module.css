@@ -1,0 +1,7 @@
+.container {
+    margin: 0;
+    padding: 0;
+    color: black;
+    background: black;
+    transition: 2s ease;
+}
