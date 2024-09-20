@@ -1,0 +1,31 @@
+.travelMode {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-direction: column;
+    width: calc(100% - 20px);
+}
+
+.travelModeContent {
+    display: flex;
+    gap: 10px;
+}
+
+.content span {
+    font-size: 0.6rem;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.contentLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}

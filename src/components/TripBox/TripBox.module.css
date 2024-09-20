@@ -1,0 +1,29 @@
+.container {
+    cursor: pointer;
+}
+
+.title {
+    margin: 10px 0px;
+    font-size: 1.3rem;
+}
+
+.text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.text span {
+    font-size: 0.9rem;
+}
+
+.photo {
+    height: 150px;
+    width: 250px;
+}
+
+.photo img {
+    height: 150px;
+    width: 250px;
+    border-radius: 10px;
+}
