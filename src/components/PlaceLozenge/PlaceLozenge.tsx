@@ -229,7 +229,8 @@ export default function PlaceLozenge(props: PlaceLozengeProps) {
                 <span
                   style={{
                     color:
-                      props.poi?.order === currentTrip?.destination.order
+                      props.poi?.order === currentTrip?.destination.order &&
+                      !props.swapPOI
                         ? "#EA4335"
                         : "#333333",
                   }}
