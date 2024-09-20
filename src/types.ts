@@ -69,6 +69,7 @@ export type POI = {
   address: string;
   photos: string[];
   directions?: google.maps.DirectionsResult;
+  normalized_popularity?: number;
 };
 
 export type Itinerary = {

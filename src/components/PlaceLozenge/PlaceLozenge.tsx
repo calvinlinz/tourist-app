@@ -20,6 +20,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { toast } from "react-toastify";
 import { NumberInput } from "../NumberInput/NumberInput";
 import { updateItineraryTimings } from "../NavBar/components/ItineraryGenerator/utils";
+import Loading from "react-loading";
 interface PlaceLozengeProps {
   poi: POI;
   rightComponent?: React.ReactNode;
@@ -39,9 +40,13 @@ export default function PlaceLozenge(props: PlaceLozengeProps) {
     setCurrentItinerary,
     selectedDay,
   } = useContext(ItineraryContext);
+  const [swapLoad, setSwapLoad] = React.useState(false);
   const [stayDuration, setStayDuration] = React.useState<number>(
     Number(props.poi.time_spent)
   );
+  if (props.swapPOI) {
+    console.log(props.poi);
+  }
   const hiddenInputRef = useRef<HTMLInputElement>(null);
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
@@ -251,27 +256,50 @@ export default function PlaceLozenge(props: PlaceLozengeProps) {
               ? props.rightComponent
               : props.poi?.name != currentItinerary[0].itinerary[0].name && (
                   <div className={styles.placeLozengeOptions}>
-                    <SyncAltIcon
-                      fontSize="small"
-                      color="action"
-                      onClick={() => {
-                        fetch(
-                          `${process.env.REACT_APP_API_URL}nearby?lat=${props.poi?.latitude}&lng=${props.poi?.longitude}&distance=${distanceRef.current}`
-                        )
-                          .then((response) => response.json())
-                          .then((data) => {
-                            if (data.length === 0)
-                              throw new Error("No nearby POIs found");
-                            setSwapPOI({
-                              poi: props.poi,
-                              nearby: data,
+                    {!swapLoad ? (
+                      <SyncAltIcon
+                        fontSize="small"
+                        color="action"
+                        onClick={() => {
+                          setSwapLoad(true);
+                          fetch(
+                            `${process.env.REACT_APP_API_URL}nearby?lat=${props.poi?.latitude}&lng=${props.poi?.longitude}&distance=${distanceRef.current}`
+                          )
+                            .then((response) => response.json())
+                            .then((data) => {
+                              if (data.length === 0)
+                                throw new Error("No nearby POIs found");
+                              setSwapPOI({
+                                poi: props.poi,
+                                nearby: data,
+                              });
+                              setSwapLoad(false);
+                            })
+                            .catch((error) => {
+                              setSwapLoad(false);
+                              toast.info("No nearby POIs found");
                             });
-                          })
-                          .catch((error) => {
-                            toast.info("No nearby POIs found");
-                          });
-                      }}
-                    />
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          minWidth: 20,
+                          height: 20,
+                          display: "flex",
+                          justifyItems: "center",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Loading
+                          type={"spokes"}
+                          color={"#6F7070"}
+                          height={15}
+                          width={15}
+                        />
+                      </div>
+                    )}
                     <span
                       style={style}
                       {...listeners}
@@ -307,7 +335,7 @@ export default function PlaceLozenge(props: PlaceLozengeProps) {
               </span>
             )}
             <div className={styles.extendedFooter}>
-              {props.poi.address && (
+              {props.poi.address && props.poi.address !== "-" && (
                 <div className={styles.footerComponentCol}>
                   {props.swapPOI === undefined && (
                     <div className={styles.metric}>
@@ -345,17 +373,22 @@ export default function PlaceLozenge(props: PlaceLozengeProps) {
                     <PlaceIcon sx={{ width: 15, height: 15 }} color="action" />
                     <span>{props.poi?.address}</span>
                   </a>
-                  {props.poi.openingHours.length > 0 && (
-                    <div
-                      style={{ display: "flex", alignItems: "center", gap: 5 }}
-                    >
-                      <AccessTimeIcon
-                        sx={{ width: 15, height: 15 }}
-                        color="action"
-                      />
-                      <span>{props.poi.formattedOpeningHours}</span>
-                    </div>
-                  )}
+                  {props.poi.openingHours.length > 0 &&
+                    props.poi.openingHours[0].length > 0 && (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 5,
+                        }}
+                      >
+                        <AccessTimeIcon
+                          sx={{ width: 15, height: 15 }}
+                          color="action"
+                        />
+                        <span>{props.poi.formattedOpeningHours}</span>
+                      </div>
+                    )}
                 </div>
               )}
             </div>
@@ -381,7 +414,7 @@ export default function PlaceLozenge(props: PlaceLozengeProps) {
                 >
                   <LanguageIcon sx={{ width: 15, height: 15 }} color="action" />
                   <span className={styles.shortenString}>
-                    {props.poi.website.replace(/(^\w+:|^)\/\//, "")}
+                    {props.poi.website?.replace(/(^\w+:|^)\/\//, "")}
                   </span>
                 </a>
               )}

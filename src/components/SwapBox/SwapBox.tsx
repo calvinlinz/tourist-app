@@ -25,10 +25,8 @@ export default function SwapBox() {
     currentSwapDirectionsOptions,
     setCurrentSwapDirectionsOptions,
   } = useContext(ItineraryContext);
-  const iconSize = "small";
 
   const [openConfirmation, setOpenConfirmation] = useState<any>();
-
   const handleConfirmation = (confirm: SuggestedPOI | null) => {
     if (confirm) {
       const existingItinerary = currentItinerary;
@@ -101,31 +99,12 @@ export default function SwapBox() {
         {swapPOI?.nearby
           .filter((poi) => poi.name !== swapPOI?.poi.name)
           .slice(0, 10)
-          .map((poi: SuggestedPOI) => {
+          .map((poi: POI) => {
             return (
               <PlaceLozenge
                 swapPOI={true}
-                key={poi?.[""]}
-                poi={{
-                  name: poi.name,
-                  latitude: Number(poi.latitude),
-                  longitude: Number(poi.longitude),
-                  arrival: "",
-                  leave: "",
-                  id: swapPOI?.poi.id ?? 0,
-                  order: -1,
-                  time_spent: "",
-                  travel_time: "",
-                  category: poi.category,
-                  openingHours: [],
-                  telephone: poi.telephone,
-                  description: poi.description,
-                  popularity: poi.normalized_popularity,
-                  website: "",
-                  address: poi.address,
-                  formattedOpeningHours: "",
-                  photos: [],
-                }}
+                key={poi.name}
+                poi={poi}
                 componentRef={null}
                 rightComponent={
                   <Rating

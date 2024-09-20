@@ -191,3 +191,10 @@ a {
     justify-content: flex-start;
     align-items: start;
 }
+
+.placeLozengeOptions {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+}
