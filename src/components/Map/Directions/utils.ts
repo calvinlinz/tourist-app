@@ -3,24 +3,11 @@ import { Itinerary, POI, TravelMode } from "../../../types";
 export const directionsRendererOptions = {
   suppressMarkers: true,
   preserveViewport: true,
-  // polylineOptions: {
-  //   icons: [
-  //     {
-  //       icon: {
-  //         path: 3, // google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-  //         fillColor: "#A60E0D",
-  //         fillOpacity: 1,
-  //         scale: 5,
-  //         strokeColor: "#EA4335",
-  //         strokeOpacity: 1,
-  //         strokeWeight: 2,
-  //       },
-  //     },
-  //   ],
-  //   strokeColor: "#86B9FF",
-  //   strokeOpacity: 1,
-  //   strokeWeight: 5,
-  // },
+  polylineOptions: {
+    strokeColor: "#568ddb",
+    strokeOpacity: 1,
+    strokeWeight: 5,
+  },
 };
 
 export const getLatLngObject = (poi: POI) => {

@@ -67,7 +67,8 @@ export default function PlaceLozenge(props: PlaceLozengeProps) {
     props.setOpenCancelConfirmation &&
     currentTrip.destination.name !== currentItinerary[0].itinerary[0].name;
   const distanceRef = useRef(2);
-  const categoryIconColor = !isDestination ? "black" : "#EA4335";
+  const categoryIconColor =
+    !isDestination && !props.swapPOI ? "black" : "#EA4335";
 
   const startingLocationOrders = useMemo(() => {
     return currentItinerary.map((day) => day.itinerary[0].order);
