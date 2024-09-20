@@ -1,8 +1,0 @@
-.picker input:focus-within {
-    outline: none;
-    border-color: black;
-}
-
-.picker input {
-    border-color: black;
-}
